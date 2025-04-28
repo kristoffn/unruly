@@ -1,18 +1,17 @@
-package main
+package unruly
 
 import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten"
-	"github.com/kristoffn/unruly/app"
 )
 
 func main() {
-	game, err := app.NewGame()
+	game, err := NewGame()
 	if err != nil {
 		log.Fatal(err)
 	}
-	ebiten.SetWindowSize(app.ScreenWidth, app.ScreenHeight)
+	ebiten.SetWindowSize(ScreenWidth, ScreenHeight)
 	ebiten.SetWindowTitle("Unruly")
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)

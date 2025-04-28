@@ -1,4 +1,4 @@
-package app
+package unruly
 
 import (
 	"github.com/hajimehoshi/ebiten"
