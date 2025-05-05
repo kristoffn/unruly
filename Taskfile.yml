@@ -1,0 +1,60 @@
+version: '3'
+
+vars:
+  BINARY_NAME: unruly
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  deps:
+    desc: Update dependencies
+    cmds:
+      - go mod download
+      - go mod tidy
+      - go mod verify
+
+  build:
+    desc: Build the binary
+    deps: [deps]
+    cmds:
+      - go build -o {{.BINARY_NAME}}
+
+  run:
+    desc: Run the binary
+    deps: [deps]
+    cmds:
+      - go run main.go
+
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - rm -f {{.BINARY_NAME}}
+      - go clean -cache -testcache -modcache
+
+  test:
+    desc: Run tests
+    deps: [deps]
+    cmds:
+      - go test ./...
+
+  lint:
+    desc: Run linter
+    deps: [deps]
+    cmds:
+      - go vet ./...
+      - golangci-lint run
+
+  format:
+    desc: Format Go code
+    cmds:
+      - go fmt ./...
+
+  all:
+    desc: Run all checks (lint, test, build)
+    cmds:
+      - task lint
+      - task test
+      - task build 

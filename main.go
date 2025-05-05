@@ -1,19 +1,21 @@
-package unruly
+package main
 
 import (
 	"log"
+	"unruly/game"
 
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func main() {
-	game, err := NewGame()
+	g, err := game.NewGame()
 	if err != nil {
-		log.Fatal(err)
+
 	}
-	ebiten.SetWindowSize(ScreenWidth, ScreenHeight)
-	ebiten.SetWindowTitle("Unruly")
-	if err := ebiten.RunGame(game); err != nil {
+
+	ebiten.SetWindowSize(640, 640)
+	ebiten.SetWindowTitle("Unruly Puzzle")
+	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}
 }
